@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "taming-pyspark"
+version = "0.1.0"
+description = "Learning to use pyspark"
+authors = ["Your Name <you@example.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.6"
+pyspark = "^3.0.1"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
