@@ -10,15 +10,13 @@ def read_ratings(sc: SparkContext):
     :return: None
     """
     data_file = f'{BaseConfig.DATA_FOLDER}/{BaseConfig.MOVIE_LENS_FOLDERS}/u.data'
-    data: list = sc.textFile(data_file).collect()
-
-    print(data)
-    # # result = ratings.countByValue()
-    # #
-    # # sorted_results = OrderedDict(sorted(result.items()))
-    # #
-    # # for key, value in sorted_results:
-    # #     print(f'{key}: {value}')
+    lines = sc.textFile(data_file)
+    ratings = lines.map(lambda x: x.split()[2])
+    result = ratings.countByValue()
+    sorted_results = OrderedDict(sorted(result.items()))
+    # spark results
+    for key, value in sorted_results.items():
+        print(f'{key}: {value}')
 
 
 if __name__ == '__main__':
