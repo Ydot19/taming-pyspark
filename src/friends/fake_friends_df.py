@@ -7,13 +7,9 @@ from config import BaseConfig
 def avg_friends_by_age(spark: SparkSession):
     """
     Reads a csv with index, first_name_, age, and number of friends
-    as fields. Functions reads and prints out two maps
-    First map/dict has age as a key and a tuple
-        tuple (total_friends, number of people with key age)
-
-    Second map/dict has age has the key and average number of friends
-    as the value
-    :param spark: SparkContext object
+    as fields. Uses spark session to aggregrate a dataframe to calculate
+    avg number of friends by age and total friends by age in the giving data set
+    :param spark: SparkSession class
     :return: None
     """
     data_file = f'{BaseConfig.DATA_FOLDER}/{BaseConfig.FRIENDS_DATASET}/fakefriends.csv'

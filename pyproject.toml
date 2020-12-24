@@ -2,7 +2,7 @@
 name = "taming-pyspark"
 version = "0.1.0"
 description = "Learning to use pyspark"
-authors = ["Your Name <you@example.com>"]
+authors = ["Uadi"]
 
 [tool.poetry.dependencies]
 python = "^3.6"
