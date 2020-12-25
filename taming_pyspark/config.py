@@ -12,4 +12,4 @@ class BaseConfig:
     MOVIE_LENS_FOLDERS = env("MOVIE_LENS")
     FRIENDS_DATASET = env("FRIENDS")
     TEMP_1800S = env('TEMP_1800S')
-
+    WORD_COUNT = env('WORD_COUNT')
