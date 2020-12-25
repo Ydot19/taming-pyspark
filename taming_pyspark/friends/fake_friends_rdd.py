@@ -18,7 +18,6 @@ def avg_friends_by_age(sc: SparkContext, parser):
     """
     data_file = f'{BaseConfig.DATA_FOLDER}/{BaseConfig.FRIENDS_DATASET}/fakefriends.csv'
     lines = sc.textFile(data_file)
-    print(lines)
     rdd = lines.map(parser)
     totalsByAge = rdd.mapValues(lambda x: (x, 1)).reduceByKey(lambda x, y: (x[0] + y[0], x[1] + y[1]))
     averagesByAge = totalsByAge.mapValues(lambda x: round(x[0] / x[1]))
