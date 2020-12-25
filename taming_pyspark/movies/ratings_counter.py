@@ -1,5 +1,5 @@
 from pyspark import SparkConf, SparkContext
-from config import BaseConfig
+from taming_pyspark.config import BaseConfig
 from collections import OrderedDict
 
 
