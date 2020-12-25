@@ -3,9 +3,10 @@ from pyspark.sql.types import StructType, StructField, IntegerType, StringType
 from taming_pyspark.config import BaseConfig
 
 
-def show_min_temps(spark: SparkSession):
+def show_min_or_max_temps(spark: SparkSession, show_max: bool = False):
     """
-    Shows min weather temperature observed for each weather station
+    Shows min weather temperature observed for each weather station by default
+    Setting show_max, will instead show the max temperature recorded
     Data:
         weather_station_id, date_identifier, observation_type, measurement, other... data
 
@@ -14,6 +15,7 @@ def show_min_temps(spark: SparkSession):
         TMIN - minimum temperature
         TMAX - maximum temperature
         PRCP - precipitation %
+    :param show_max: Boolean to should the max temp recorded at a station instead of the min
     :param spark: SparkSession class instance
     :return: None
     """
@@ -25,10 +27,17 @@ def show_min_temps(spark: SparkSession):
         .add(StructField('measurement', IntegerType(), False))
     # Dataframe
     df = spark.read.csv(path=data_file, schema=schema)
-    df.filter(df["observation_type"] == "TMIN") \
-        .groupby("weather_station_identifier") \
-        .min("measurement") \
-        .show()
+
+    if not show_max:
+        df.filter(df["observation_type"] == "TMIN") \
+            .groupby("weather_station_identifier") \
+            .min("measurement") \
+            .show()
+    else:
+        df.filter(df["observation_type"] == "TMAX") \
+            .groupby("weather_station_identifier") \
+            .max("measurement") \
+            .show()
 
 
 def run_min_temp():
@@ -39,10 +48,10 @@ def run_min_temp():
     spark = SparkSession \
         .builder \
         .master("local") \
-        .appName("1800s_Min_Temp") \
+        .appName("1800s_Min_or_Max_Temp") \
         .getOrCreate()
 
-    show_min_temps(spark=spark)
+    show_min_or_max_temps(spark=spark, show_max=True)
 
 
 if __name__ == '__main__':
