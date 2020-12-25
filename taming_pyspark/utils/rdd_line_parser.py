@@ -1,8 +1,8 @@
 def csv_line_to_len_2_tuple(
         line: str,
-        delimiter: str,
-        column_a: int,
-        column_b: int) \
+        delimiter: str = ',',
+        column_a: int = 2,
+        column_b: int = 3) \
         -> (int, int):
     """
     Returns a tuple of length two for a csv with minimum 2 columns
@@ -16,4 +16,3 @@ def csv_line_to_len_2_tuple(
     age = int(fields[column_a])
     num_friends = int(fields[column_b])
     return age, num_friends
-

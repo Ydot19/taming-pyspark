@@ -11,3 +11,5 @@ class BaseConfig:
     DATA_FOLDER = env("BASE_DATA_PATH")
     MOVIE_LENS_FOLDERS = env("MOVIE_LENS")
     FRIENDS_DATASET = env("FRIENDS")
+    TEMP_1800S = env('TEMP_1800S')
+

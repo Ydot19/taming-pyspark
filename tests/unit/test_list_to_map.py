@@ -1,4 +1,4 @@
-from src.utils import list_to_map as util
+from taming_pyspark.utils import list_to_map as util
 
 
 def test_creat_map_from_str_list_no_special_character():

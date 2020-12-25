@@ -1,5 +1,6 @@
 from pyspark import SparkConf, SparkContext
-from config import BaseConfig
+from taming_pyspark.config import BaseConfig
+from taming_pyspark.utils.rdd_line_parser import csv_line_to_len_2_tuple as csv_parser
 
 
 def avg_friends_by_age(sc: SparkContext, parser):
@@ -25,14 +26,6 @@ def avg_friends_by_age(sc: SparkContext, parser):
 
     for result in results:
         print(result)
-
-
-def csv_parser(line, delimiter=',', column_a=2, column_b=3):
-    # csv_line_to_len_2_tuple(line, ',', 2, 3)
-    fields = line.split(delimiter)
-    age = int(fields[column_a])
-    num_friends = int(fields[column_b])
-    return age, num_friends
 
 
 def spark_runner():
