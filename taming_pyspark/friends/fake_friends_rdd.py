@@ -1,6 +1,7 @@
 from pyspark import SparkConf, SparkContext
 from taming_pyspark.config import BaseConfig
 from taming_pyspark.utils.rdd_line_parser import csv_line_to_len_2_tuple as csv_parser
+from taming_pyspark.utils.spark_runner import spark_context_runner
 
 
 def avg_friends_by_age(sc: SparkContext, parser):
@@ -27,11 +28,9 @@ def avg_friends_by_age(sc: SparkContext, parser):
         print(result)
 
 
-def spark_runner():
-    conf = SparkConf().setMaster("local").setAppName("FakFriends")
-    sc = SparkContext(conf=conf)
-    avg_friends_by_age(sc=sc, parser=csv_parser)
-
-
 if __name__ == '__main__':
-    spark_runner()
+    spark_context_runner(
+        avg_friends_by_age,
+        app_name="FakeFriends_RDD",
+        parser=csv_parser
+    )

@@ -1,7 +1,8 @@
 from pyspark.sql import SparkSession
 from pyspark.sql.types import StructType, StructField, StringType, IntegerType
 from pyspark.sql.functions import round, mean, sum
-from config import BaseConfig
+from taming_pyspark.config import BaseConfig
+from taming_pyspark.utils.spark_runner import spark_session_runner
 
 
 def avg_friends_by_age(spark: SparkSession):
@@ -30,11 +31,4 @@ def avg_friends_by_age(spark: SparkSession):
 
 
 if __name__ == '__main__':
-    spark = SparkSession \
-        .builder \
-        .master("local") \
-        .config("spark.driver.bindAddress", "127.0.0.1") \
-        .appName("Fake Friends") \
-        .getOrCreate()
-
-    avg_friends_by_age(spark)
+    spark_session_runner(avg_friends_by_age, app_name="Fake_Friends")

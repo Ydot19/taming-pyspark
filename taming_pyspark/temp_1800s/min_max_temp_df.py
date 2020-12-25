@@ -1,5 +1,6 @@
 from pyspark.sql import SparkSession
 from pyspark.sql.types import StructType, StructField, IntegerType, StringType
+from taming_pyspark.utils.spark_runner import spark_session_runner
 from taming_pyspark.config import BaseConfig
 
 
@@ -40,19 +41,9 @@ def show_min_or_max_temps(spark: SparkSession, show_max: bool = False):
             .show()
 
 
-def run_min_temp():
-    """
-    Runs spark job in a function callable to reduce global variable namespace pollution
-    :return:
-    """
-    spark = SparkSession \
-        .builder \
-        .master("local") \
-        .appName("1800s_Min_or_Max_Temp") \
-        .getOrCreate()
-
-    show_min_or_max_temps(spark=spark, show_max=True)
-
-
 if __name__ == '__main__':
-    run_min_temp()
+    spark_session_runner(
+        show_min_or_max_temps,
+        app_name="1800s_Min_or_Max_Temp",
+        show_max=True
+    )

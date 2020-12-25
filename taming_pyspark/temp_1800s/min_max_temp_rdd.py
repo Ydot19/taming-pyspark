@@ -1,5 +1,5 @@
 from pyspark import SparkConf, SparkContext
-from pyspark.rdd import RDD
+from taming_pyspark.utils.spark_runner import spark_context_runner
 from taming_pyspark.utils.rdd_line_parser import file_to_csv_tuple as csv_parser
 from taming_pyspark.config import BaseConfig
 
@@ -51,14 +51,5 @@ def show_min_or_temps_rdd(sc: SparkContext, show_max: bool = False):
               f'Temperature: {record[1]}', end='\n\n')
 
 
-def run_show_temps_rdd():
-    conf = SparkConf() \
-        .setMaster('local') \
-        .setAppName('Min_Temp_RDD')
-
-    sc = SparkContext(conf=conf)
-    show_min_or_temps_rdd(sc=sc, show_max=True)
-
-
 if __name__ == '__main__':
-    run_show_temps_rdd()
+    spark_context_runner(show_min_or_temps_rdd, app_name="Min_Max_Temp_RDD", show_max=True)

@@ -1,5 +1,6 @@
 from pyspark import SparkConf, SparkContext
 from taming_pyspark.config import BaseConfig
+from taming_pyspark.utils.spark_runner import spark_context_runner
 from collections import OrderedDict
 
 
@@ -20,7 +21,4 @@ def read_ratings(sc: SparkContext):
 
 
 if __name__ == '__main__':
-    conf = SparkConf().setMaster("local").setAppName("RatingsHistogram")
-    sc = SparkContext(conf=conf)
-
-    read_ratings(sc=sc)
+    spark_context_runner(read_ratings, app_name="RatingsHistogram")
