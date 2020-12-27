@@ -18,7 +18,7 @@ def spending_rdd(sc: SparkContext):
     data_file = f'{BaseConfig.DATA_FOLDER}/{BaseConfig.CONSUMER_SPENDING}/customer_orders.csv'
     data_rdd = sc.textFile(data_file)
     data_delimited_rdd = data_rdd.map(lambda x: x.split(',')).map(lambda x: (x[0], float(x[2])))
-    consumer_spending = data_delimited_rdd.reduceByKey(lambda a, b: round(a + b, 2))
+    consumer_spending = data_delimited_rdd.reduceByKey(lambda a, b: round(a + b, 2)).sortBy(lambda s: s[1])
 
     for customer_id, spend in consumer_spending.collect():
         print("Customer ID: {0: <4} \tTotal Spend: ${1}".format(customer_id, spend), end="\n")
