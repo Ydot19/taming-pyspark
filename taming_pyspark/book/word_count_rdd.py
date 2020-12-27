@@ -14,7 +14,7 @@ def count_word_occurrence(sc: SparkContext):
     all_words = lines.flatMap(lambda sentence: sentence.split())
     wordCount = all_words.countByValue()
 
-    for word, count in wordCount.items():
+    for word, count in sorted(wordCount.items(), key=lambda x: int(x[1])):
         cleaned_word = word.encode('ascii', 'ignore')
         if cleaned_word:
             print(f'{cleaned_word.decode("ascii")}: {count}')

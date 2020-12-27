@@ -1,0 +1,26 @@
+from pyspark import SparkContext
+from taming_pyspark.utils.spark_runner import spark_context_runner
+from taming_pyspark.utils.regular_expressions import normalize_words
+from taming_pyspark.config import BaseConfig
+
+
+def count_word_occurrences_regex(sc: SparkContext):
+    """
+    Takes a text adn shows unique words and its frequency. Uses regex to
+    remove none words
+    :param sc:
+    :return: None
+    """
+    data_file = f'{BaseConfig.DATA_FOLDER}/{BaseConfig.WORD_COUNT}/Book.txt'
+    lines = sc.textFile(data_file)
+    all_words = lines.flatMap(lambda sentence: sentence.split()).flatMap(normalize_words)
+    word_counts = all_words.countByValue()
+
+    for word, count in sorted(word_counts.items(), key=lambda x: int(x[1])):
+        cleaned_word = word.encode("ascii", 'ignore')
+        if cleaned_word:
+            print(f'{cleaned_word.decode("ascii")}: {count}')
+
+
+if __name__ == '__main__':
+    spark_context_runner(count_word_occurrences_regex, app_name="Word_Frequency_Regex")
