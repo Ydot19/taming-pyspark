@@ -6,6 +6,7 @@ from taming_pyspark.utils.spark_runner import spark_session_runner
 from taming_pyspark.config import BaseConfig
 
 
+# noinspection PyTypeChecker
 def most_watched(spark: SparkSession):
     """
     Analyzes a data set with the following columns that are tab separate
@@ -22,7 +23,7 @@ def most_watched(spark: SparkSession):
     data_file = f'{BaseConfig.DATA_FOLDER}/{BaseConfig.MOVIE_LENS_FOLDERS}/u.data'
     movie_index_file = f'{BaseConfig.DATA_FOLDER}/{BaseConfig.MOVIE_LENS_FOLDERS}/u.item'
     # broadcast file to the executor nodes to reference
-    movie_broadcast = spark.sparkContext.broadcast(load_movie_names(movie_index_file))
+    movie_broadcast = spark.sparkContext.broadcast(movie_id_to_name(movie_index_file))
 
     # below is the logic
     custom_schema = StructType([
@@ -60,19 +61,19 @@ def lookup_movie_name(mapping):
     return udf(id_to_name)
 
 
-def load_movie_names(file_path: str) -> dict[int, str]:
+def movie_id_to_name(file_path: str) -> dict[int, str]:
     """
     Uses the codec module to read the movie name based on the movie id
     :param file_path: str to the file path in the virtual environment
-    :return: movie_names as a dictionary
+    :return: id_names as a dictionary
     """
-    movie_names = dict()
+    id_names = dict()
     with codecs.open(filename=file_path, mode="r", encoding='ISO-8859-1', errors='ignore') as f:
         for line in f:
             fields = line.split('|')
-            movie_names[int(fields[0])] = fields[1]
+            id_names[int(fields[0])] = fields[1]
 
-    return movie_names
+    return id_names
 
 
 if __name__ == "__main__":

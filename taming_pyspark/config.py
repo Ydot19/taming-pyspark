@@ -14,3 +14,4 @@ class BaseConfig:
     TEMP_1800S = env('TEMP_1800S')
     WORD_COUNT = env('WORD_COUNT')
     CONSUMER_SPENDING = env("CONSUMER_SPENDING")
+    HEROES = env("HEROES")
