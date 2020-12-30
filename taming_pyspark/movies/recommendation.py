@@ -1,4 +1,5 @@
 import sys
+# import time
 from pyspark.sql import SparkSession, DataFrame
 from pyspark.sql import functions as func
 from pyspark.sql.types import StructType, StructField, StringType, IntegerType, LongType
@@ -136,3 +137,8 @@ if __name__ == '__main__':
                                                          app_name="Recommendations",
                                                          **options)
     print(session.main())
+    # time module used to view spark ui
+    # command in the terminal
+    # export PYSPARK_PYTHON=$HOME/.cache/pypoetry/virtualenvs/{env_name}/bin/python;
+    # spark-submit taming_pyspark/movies/recommendation.py 50
+    # time.sleep(1000)
