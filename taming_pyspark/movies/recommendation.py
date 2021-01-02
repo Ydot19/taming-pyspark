@@ -139,6 +139,5 @@ if __name__ == '__main__':
     print(session.main())
     # time module used to view spark ui
     # command in the terminal
-    # export PYSPARK_PYTHON=$HOME/.cache/pypoetry/virtualenvs/{env_name}/bin/python;
-    # spark-submit taming_pyspark/movies/recommendation.py 50
+    # export PYSPARK_PYTHON=$HOME/.cache/pypoetry/virtualenvs/{env_name}/bin/python; spark-submit taming_pyspark/movies/recommendation.py 50
     # time.sleep(1000)
